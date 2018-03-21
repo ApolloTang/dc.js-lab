@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>dc.js lab</title>
+  <link rel="stylesheet" type="text/css" href="http://localhost:9092/dc.v2.1/dc.css" >
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+  </div>
+  <script src="http://localhost:9092/less/dist/less.js"></script>
+  <script src="http://localhost:9092/lodash.js"></script>
+  <script src="http://localhost:9092/d3.v3.js"></script>
+  <script src="http://localhost:9092/crossfilter-v1.3.js"></script>
+  <script src="http://localhost:9092/dc.v2.1/dc.js"></script>
+  <script src="http://localhost:9092/print-filter.js"></script>
+  <script>
+    console.log( `
+      _: version ${_.VERSION}
+      less: version ${less.version}
+      crossfilter: version ${crossfilter.version}
+      d3: version ${d3.version}
+      dc.js: version ${dc.version}
+    `);
+  </script>
+</body>
+
+</html>
