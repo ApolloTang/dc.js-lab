@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>dc.js lab</title>
+  <link rel="stylesheet" type="text/css" href="http://localhost:9092/dc.v2.1/dc.css" >
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+    div {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="chart"></div>
+  <script src="http://localhost:9092/less/dist/less.js"></script>
+  <script src="http://localhost:9092/lodash.js"></script>
+  <script src="http://localhost:9092/d3.v3.js"></script>
+  <script src="http://localhost:9092/crossfilter-v1.3.js"></script>
+  <script src="http://localhost:9092/dc.v2.1/dc.js"></script>
+  <script src="http://localhost:9092/print-filter.js"></script>
+  <script>
+    console.log( `
+      _: version ${_.VERSION}
+      less: version ${less.version}
+      crossfilter: version ${crossfilter.version}
+      d3: version ${d3.version}
+      dc.js: version ${dc.version}
+    `);
+
+  var data = [
+  {date: "2011-11-14T16:17:54Z", quantity: 2, total: 190, tip: 100, type: "tab"},
+  {date: "2011-11-14T16:20:19Z", quantity: 2, total: 190, tip: 100, type: "tab"},
+  {date: "2011-11-14T16:28:54Z", quantity: 1, total: 300, tip: 200, type: "visa"},
+  {date: "2011-11-14T16:30:43Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T16:48:46Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T16:53:41Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T16:54:06Z", quantity: 1, total: 100, tip: 0, type: "cash"},
+  {date: "2011-11-14T16:58:03Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T17:07:21Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T17:22:59Z", quantity: 2, total: 90, tip: 0, type: "tab"},
+  {date: "2011-11-14T17:25:45Z", quantity: 2, total: 200, tip: 0, type: "cash"},
+  {date: "2011-11-14T17:29:52Z", quantity: 1, total: 200, tip: 100, type: "visa"}
+];
+
+var facts = crossfilter(data);
+var typeDimension = facts.dimension(function(d){ return d.type; });
+var typeGroup = typeDimension.group();
+
+dc.barChart("#chart")
+    .dimension(typeDimension)
+    .group(typeGroup)
+    .x(d3.scale.ordinal().domain(['cash','tab','visa']))
+    .xUnits(dc.units.ordinal);
+
+dc.renderAll();
+
+  // console.log(data);
+  // console.log(facts);
+  print_filter('typeGroup');
+
+
+  </script>
+</body>
+
+</html>
