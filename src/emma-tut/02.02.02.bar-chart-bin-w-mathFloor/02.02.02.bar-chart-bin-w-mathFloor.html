@@ -73,8 +73,9 @@ var totalGroupUnaltered = totalDimension.group(d=>d);
 l('pT(totalGroupUnaltered.all())')
 pT(totalGroupUnaltered.all())
 
-l('pT(totalGroup.all())')
 var totalGroup = totalDimension.group(d=>(Math.floor(d/100))*100);
+l('pT(totalGroup.all())')
+pT(totalGroup.all())
 
 const b1=dc.barChart("#chart");
 b1.dimension(typeDimension)
